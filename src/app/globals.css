@@ -1,26 +1,167 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg: #fafafa;
+  --bg-alt: #f4f4f3;
+  --surface: #ffffff;
+  --surface-tint: #f6f6f5;
+  --border: #e6e5e2;
+  --border-strong: #d3d2ce;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --fg: #15161a;
+  --fg-muted: #5a5b63;
+  --fg-faint: #93939b;
+
+  --primary: #15161a;
+  --primary-dark: #000000;
+  --on-primary: #ffffff;
+
+  --accent: #2f6fed;
+  --accent-soft: #e9f0fe;
+
+  --success: #1a7f4e;
+
+  --accent-blue: #2f6fed;
+  --accent-violet: #7c5cff;
+  --accent-green: #1a9d6e;
+  --accent-amber: #c77f1a;
+  --accent-rose: #d8406b;
+  --accent-cyan: #0ea5c4;
+
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-source-serif);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-source-serif);
+  --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--border-strong) 70%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--border-strong) 70%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 28px 28px;
+}
+
+/* Icon chips: a muted color on a very soft tint of the same hue */
+.chip-blue {
+  background: color-mix(in srgb, var(--accent-blue) 10%, white);
+  color: var(--accent-blue);
+  border-color: color-mix(in srgb, var(--accent-blue) 22%, transparent);
+}
+.chip-violet {
+  background: color-mix(in srgb, var(--accent-violet) 10%, white);
+  color: var(--accent-violet);
+  border-color: color-mix(in srgb, var(--accent-violet) 22%, transparent);
+}
+.chip-green {
+  background: color-mix(in srgb, var(--accent-green) 10%, white);
+  color: var(--accent-green);
+  border-color: color-mix(in srgb, var(--accent-green) 22%, transparent);
+}
+.chip-amber {
+  background: color-mix(in srgb, var(--accent-amber) 10%, white);
+  color: var(--accent-amber);
+  border-color: color-mix(in srgb, var(--accent-amber) 22%, transparent);
+}
+.chip-rose {
+  background: color-mix(in srgb, var(--accent-rose) 10%, white);
+  color: var(--accent-rose);
+  border-color: color-mix(in srgb, var(--accent-rose) 22%, transparent);
+}
+.chip-cyan {
+  background: color-mix(in srgb, var(--accent-cyan) 10%, white);
+  color: var(--accent-cyan);
+  border-color: color-mix(in srgb, var(--accent-cyan) 22%, transparent);
+}
+
+/* Status pills used inside mock product UI */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.pill-green {
+  background: color-mix(in srgb, var(--accent-green) 12%, white);
+  color: var(--accent-green);
+}
+.pill-amber {
+  background: color-mix(in srgb, var(--accent-amber) 14%, white);
+  color: var(--accent-amber);
+}
+.pill-rose {
+  background: color-mix(in srgb, var(--accent-rose) 12%, white);
+  color: var(--accent-rose);
+}
+.pill-blue {
+  background: color-mix(in srgb, var(--accent-blue) 10%, white);
+  color: var(--accent-blue);
+}
+.pill-neutral {
+  background: var(--surface-tint);
+  color: var(--fg-muted);
 }
